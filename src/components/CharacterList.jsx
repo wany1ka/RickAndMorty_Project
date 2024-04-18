@@ -23,18 +23,23 @@ const CharacterList = () => {
         fetchCharacters();
     }, []);
 
-    
+    const deleteCharacter = (id) => {
+        const updatedCharacters = characters.filter(character => character.id !== id);
+        setCharacters(updatedCharacters);
+    };
+
     const filteredCharacters = characters.filter(character =>
         character.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
     return (
         <div>
+            <h1 className='font-bold text-3xl text-center'>Rick And Morty Characters</h1>
             <input
                 type="text"
                 placeholder="Search characters"
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                className='mx-6 my-4'
+                className='mx-6 my-4 w-1/2 border border-gray-400'
             />
             <div className='grid grid-cols-3 gap-4'>
                 {filteredCharacters.map(character => (
@@ -44,9 +49,9 @@ const CharacterList = () => {
                         <p>{character.species}</p>
                         <img src={character.image} alt={character.name} style={{ width: 200, height: 200 }} />
                         <Link to={`characters/${character.id}`} state={character}>
-                            <button className="font-serif text-center bg-red-500 mt-4 text-gray-100 hover:text-gray-300 border border-gray-300 rounded-lg">Read more</button>
+                            <button className="font-mono text-center bg-green-500 mt-4 text-gray-100 hover:text-gray-300 border border-gray-300 rounded-lg mr-3 px-2">View</button>
                         </Link>
-                        <button onClick={() => deleteCharacter(character.id)}>Delete</button>
+                        <button className='font-mono text-center bg-red-500 mt-4 text-gray-100 hover:text-gray-300 border border-gray-300 rounded-lg px-1' onClick={() => deleteCharacter(character.id)}>Delete</button>
                     </div>
                 ))}
             </div>
