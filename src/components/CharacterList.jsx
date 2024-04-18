@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './Style.css'
 
 const CharacterList = () => {
     const [characters, setCharacters] = useState([]);
@@ -33,25 +34,22 @@ const CharacterList = () => {
 
     return (
         <div>
-            <h1 className='font-bold text-3xl text-center'>Rick And Morty Characters</h1>
+            <h1 className='font-bold text-3xl text-center text-red-500 my-4'>Rick And Morty Characters</h1>
             <input
                 type="text"
                 placeholder="Search characters"
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                className='mx-6 my-4 w-1/2 border border-gray-400'
+                className='mx-6 my-4 mb-9 w-1/2 border border-red-600  py-3'
             />
             <div className='grid grid-cols-3 gap-4'>
                 {filteredCharacters.map(character => (
                     <div key={character.id} className='border p-4'>
-                        <h3 className='text-xl font-bold'>{character.name}</h3>
-                        <p className='italic text-lg font-mono'>{character.status}</p>
-                        <p>{character.species}</p>
-                        <img src={character.image} alt={character.name} style={{ width: 200, height: 200 }} />
                         <Link to={`characters/${character.id}`} state={character}>
-                            <button className="font-mono text-center bg-green-500 mt-4 text-gray-100 hover:text-gray-300 border border-gray-300 rounded-lg mr-3 px-2">View</button>
+                            <h3 className='text-xl text-center font-bold'>{character.name}</h3>
+                            <img src={character.image} alt={character.name} style={{ width: 400, height: 300 }} />
                         </Link>
-                        <button className='font-mono text-center bg-red-500 mt-4 text-gray-100 hover:text-gray-300 border border-gray-300 rounded-lg px-1' onClick={() => deleteCharacter(character.id)}>Delete</button>
+                        <button className='font-mono text-center bg-red-500 mt-4 text-gray-100 hover:text-gray-300 border border-gray-300 rounded-lg p-2 w-64 ml-10' onClick={() => deleteCharacter(character.id)}>Delete</button>
                     </div>
                 ))}
             </div>
